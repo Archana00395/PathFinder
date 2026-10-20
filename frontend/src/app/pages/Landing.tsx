@@ -4,6 +4,7 @@ import { Button } from "../components/ui/button";
 import { Sparkles, Target, TrendingUp, Users, ArrowRight } from "lucide-react";
 import { useUser } from "../contexts/UserContext";
 import { useEffect } from "react";
+import { Navbar, PrimaryButton, StatusBadge } from "../components/design-system";
 
 export const Landing = () => {
     const navigate = useNavigate();
@@ -16,16 +17,15 @@ export const Landing = () => {
     }, [isAuthenticated, navigate]);
 
     return (
-        <div className="min-h-screen bg-gradient-to-br from-purple-50 via-blue-50 to-white relative overflow-hidden">
-            {/* Animated Background Elements */}
-            <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <div className="min-h-screen overflow-hidden">
+            <div className="absolute inset-0 -z-10 overflow-hidden pointer-events-none">
                 <motion.div
                     animate={{
                         scale: [1, 1.2, 1],
                         rotate: [0, 90, 0],
                     }}
                     transition={{ duration: 20, repeat: Infinity }}
-                    className="absolute top-20 right-20 w-72 h-72 bg-purple-300/20 rounded-full blur-3xl"
+                    className="absolute right-20 top-24 h-72 w-72 rounded-full bg-violet-300/20 blur-3xl"
                 />
                 <motion.div
                     animate={{
@@ -33,78 +33,50 @@ export const Landing = () => {
                         rotate: [90, 0, 90],
                     }}
                     transition={{ duration: 15, repeat: Infinity }}
-                    className="absolute bottom-20 left-20 w-96 h-96 bg-blue-300/20 rounded-full blur-3xl"
+                    className="absolute bottom-16 left-20 h-96 w-96 rounded-full bg-cyan-300/20 blur-3xl"
                 />
             </div>
 
-            {/* Header */}
-            <header className="container mx-auto px-6 py-6 relative z-10">
-                <div className="flex items-center justify-between">
-                    <motion.div
-                        initial={{ opacity: 0, x: -20 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        className="flex flex-col"
-                    >
-                        <div className="flex items-center gap-2">
-                            <div className="w-10 h-10 bg-gradient-to-br from-purple-600 to-blue-600 rounded-xl flex items-center justify-center shadow-lg">
-                                <Sparkles className="w-6 h-6 text-white" />
-                            </div>
-                            <span className="text-2xl font-bold bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">
-                                PATHFINDERS
-                            </span>
-                        </div>
-                        <p className="text-xs text-gray-600 ml-12 italic">Where Dreams Meet Direction</p>
-                    </motion.div>
-                    <motion.div
-                        initial={{ opacity: 0, x: 20 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        className="flex gap-3"
-                    >
+            <Navbar
+                actions={
+                    <>
                         <Button variant="ghost" onClick={() => navigate("/login")}>
                             Login
                         </Button>
-                        <Button
-                            onClick={() => navigate("/signup")}
-                            className="bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 shadow-lg"
-                        >
-                            Get Started
-                        </Button>
-                    </motion.div>
-                </div>
-            </header>
+                        <PrimaryButton onClick={() => navigate("/signup")}>
+                            Get started
+                        </PrimaryButton>
+                    </>
+                }
+            />
 
-            {/* Hero Section */}
-            <main className="container mx-auto px-6 py-20 relative z-10">
-                <div className="text-center max-w-4xl mx-auto">
+            <main className="relative z-10 mx-auto max-w-6xl px-4 pb-20 pt-12 sm:px-6 lg:px-8">
+                <div className="mx-auto max-w-4xl text-center">
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: 0.2 }}
                     >
-                        <div className="inline-block px-6 py-3 bg-white/60 backdrop-blur-md rounded-full mb-6 border border-purple-200/50 shadow-lg">
-                            <span className="text-purple-700 font-medium flex items-center gap-2">
-                                <Sparkles className="w-4 h-4" />
-                                AI-Powered Career Guidance
-                            </span>
-                        </div>
+                        <StatusBadge variant="info" className="inline-flex items-center gap-2 rounded-full border border-indigo-200 bg-white/80 px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.2em] text-indigo-700 shadow-sm">
+                            <Sparkles className="h-3.5 w-3.5" />
+                            AI-Powered Career Guidance
+                        </StatusBadge>
                     </motion.div>
 
                     <motion.h1
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: 0.3 }}
-                        className="text-7xl font-bold mb-4"
+                        className="mt-8 bg-gradient-to-r from-slate-900 via-indigo-700 to-cyan-600 bg-clip-text text-transparent"
                     >
-                        <span className="bg-gradient-to-r from-purple-600 via-blue-600 to-purple-600 bg-clip-text text-transparent">
-                            PATHFINDERS
-                        </span>
+                        PATHFINDERS
                     </motion.h1>
 
                     <motion.p
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: 0.4 }}
-                        className="text-2xl text-gray-700 mb-4 font-medium italic"
+                        className="mt-4 text-xl font-medium italic text-slate-600 sm:text-2xl"
                     >
                         Where Dreams Meet Direction
                     </motion.p>
@@ -113,43 +85,32 @@ export const Landing = () => {
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: 0.5 }}
-                        className="text-xl text-gray-600 mb-10 max-w-2xl mx-auto"
+                        className="mx-auto mt-6 max-w-2xl text-base text-slate-600 sm:text-xl"
                     >
-                        Your personal AI mentor that deeply understands you and guides you
-                        toward the perfect career path with clarity, confidence, and structure.
+                        Your personal AI mentor that understands your strengths, interests, and ambitions — and helps you turn uncertainty into a confident career plan.
                     </motion.p>
 
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: 0.6 }}
-                        className="flex gap-4 justify-center"
+                        className="mt-10 flex flex-col justify-center gap-4 sm:flex-row"
                     >
-                        <Button
-                            size="lg"
-                            onClick={() => navigate("/signup")}
-                            className="bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-lg px-8 py-6 shadow-xl hover:shadow-2xl transition-all"
-                        >
-                            Start Your Journey
-                            <ArrowRight className="w-5 h-5 ml-2" />
-                        </Button>
-                        <Button
-                            size="lg"
-                            variant="outline"
-                            onClick={() => navigate("/login")}
-                            className="text-lg px-8 py-6 bg-white/60 backdrop-blur-md border-purple-200 hover:bg-white/80"
-                        >
+                        <PrimaryButton size="lg" onClick={() => navigate("/signup")} className="px-8 py-6 text-base sm:text-lg">
+                            Start your journey
+                            <ArrowRight className="h-5 w-5" />
+                        </PrimaryButton>
+                        <Button size="lg" variant="outline" onClick={() => navigate("/login")} className="px-8 py-6 text-base sm:text-lg">
                             Login
                         </Button>
                     </motion.div>
                 </div>
 
-                {/* Features Grid */}
                 <motion.div
                     initial={{ opacity: 0, y: 40 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.7 }}
-                    className="grid md:grid-cols-3 gap-8 mt-24"
+                    className="mt-20 grid gap-6 md:grid-cols-3"
                 >
                     {features.map((feature, index) => (
                         <motion.div
@@ -157,59 +118,42 @@ export const Landing = () => {
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ delay: 0.8 + index * 0.1 }}
-                            whileHover={{ scale: 1.05, y: -5 }}
-                            className="bg-white/60 backdrop-blur-md rounded-2xl p-8 shadow-xl border border-purple-100/50 hover:shadow-2xl transition-all"
+                            whileHover={{ y: -6 }}
+                            className="rounded-[28px] border border-slate-200/80 bg-white/75 p-7 shadow-[0_24px_60px_-40px_rgba(15,23,42,0.5)] backdrop-blur-sm"
                         >
-                            <div className="w-14 h-14 bg-gradient-to-br from-purple-100 to-blue-100 rounded-xl flex items-center justify-center mb-4 shadow-lg">
-                                <feature.icon className="w-7 h-7 text-purple-600" />
+                            <div className="mb-5 flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br from-indigo-100 to-cyan-100 text-indigo-700 shadow-inner">
+                                <feature.icon className="h-7 w-7" />
                             </div>
-                            <h3 className="text-xl font-semibold mb-3">{feature.title}</h3>
-                            <p className="text-gray-600">{feature.description}</p>
+                            <h3 className="mb-3 text-xl font-bold text-slate-900">{feature.title}</h3>
+                            <p className="text-sm leading-6 text-slate-600">{feature.description}</p>
                         </motion.div>
                     ))}
                 </motion.div>
 
-                {/* Stats Section */}
                 <motion.div
                     initial={{ opacity: 0, y: 40 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 1.1 }}
-                    className="mt-24 bg-gradient-to-r from-purple-600 to-blue-600 rounded-3xl p-12 text-white shadow-2xl relative overflow-hidden"
+                    className="mt-20 overflow-hidden rounded-[32px] bg-gradient-to-r from-indigo-600 via-violet-600 to-cyan-500 p-8 text-white shadow-[0_35px_90px_-45px_rgba(79,70,229,0.9)] sm:p-10"
                 >
-                    <div className="absolute inset-0 bg-white/5 backdrop-blur-sm" />
-                    <div className="grid md:grid-cols-3 gap-8 text-center relative z-10">
+                    <div className="grid gap-8 text-center md:grid-cols-3">
                         <div>
-                            <motion.div
-                                initial={{ scale: 0 }}
-                                animate={{ scale: 1 }}
-                                transition={{ delay: 1.3, type: "spring" }}
-                                className="text-5xl font-bold mb-2"
-                            >
+                            <motion.div initial={{ scale: 0 }} animate={{ scale: 1 }} transition={{ delay: 1.3, type: "spring" }} className="text-4xl font-black sm:text-5xl">
                                 10K+
                             </motion.div>
-                            <div className="text-purple-100">Students Guided</div>
+                            <div className="mt-2 text-sm uppercase tracking-[0.2em] text-indigo-100">Students guided</div>
                         </div>
                         <div>
-                            <motion.div
-                                initial={{ scale: 0 }}
-                                animate={{ scale: 1 }}
-                                transition={{ delay: 1.4, type: "spring" }}
-                                className="text-5xl font-bold mb-2"
-                            >
+                            <motion.div initial={{ scale: 0 }} animate={{ scale: 1 }} transition={{ delay: 1.4, type: "spring" }} className="text-4xl font-black sm:text-5xl">
                                 500+
                             </motion.div>
-                            <div className="text-purple-100">Career Paths</div>
+                            <div className="mt-2 text-sm uppercase tracking-[0.2em] text-indigo-100">Career paths</div>
                         </div>
                         <div>
-                            <motion.div
-                                initial={{ scale: 0 }}
-                                animate={{ scale: 1 }}
-                                transition={{ delay: 1.5, type: "spring" }}
-                                className="text-5xl font-bold mb-2"
-                            >
+                            <motion.div initial={{ scale: 0 }} animate={{ scale: 1 }} transition={{ delay: 1.5, type: "spring" }} className="text-4xl font-black sm:text-5xl">
                                 95%
                             </motion.div>
-                            <div className="text-purple-100">Satisfaction Rate</div>
+                            <div className="mt-2 text-sm uppercase tracking-[0.2em] text-indigo-100">Satisfaction</div>
                         </div>
                     </div>
                 </motion.div>

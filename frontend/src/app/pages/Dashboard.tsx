@@ -23,6 +23,7 @@ import {
     CardTitle,
 } from "../components/ui/card";
 import { useEffect } from "react";
+import { AppShell, PageHeader, ProgressCard, StatCard } from "../components/design-system";
 
 export const Dashboard = () => {
     const navigate = useNavigate();
@@ -48,43 +49,25 @@ export const Dashboard = () => {
     };
 
     return (
-        <div className="min-h-screen bg-gradient-to-br from-purple-50 via-blue-50 to-white">
-            {/* Header */}
-            <div className="bg-white border-b border-purple-100">
-                <div className="max-w-7xl mx-auto px-6 py-4">
-                    <div className="flex items-center justify-between">
-                        <div className="flex items-center gap-3">
-                            <div className="w-12 h-12 bg-gradient-to-br from-purple-600 to-blue-600 rounded-xl flex items-center justify-center">
-                                <Sparkles className="w-6 h-6 text-white" />
-                            </div>
-                            <div>
-                                <h1 className="text-2xl font-bold">CareerPath AI</h1>
-                                <p className="text-sm text-gray-600">Your Career Dashboard</p>
-                            </div>
-                        </div>
+        <AppShell showSidebar>
+            <div className="max-w-7xl mx-auto px-4 py-8 sm:px-6 lg:px-10">
+                <PageHeader
+                    eyebrow="Career dashboard"
+                    title={`Welcome back, ${user.name}! 👋`}
+                    description="Continue your journey to finding the perfect career path."
+                    action={
                         <Button onClick={handleLogout} variant="outline">
                             <LogOut className="w-4 h-4 mr-2" /> Logout
                         </Button>
-                    </div>
+                    }
+                />
+
+                <div className="grid gap-4 md:grid-cols-3 mb-8">
+                    <StatCard label="Profile" value="84%" sublabel="Onboarding complete" />
+                    <StatCard label="Quiz" value="6/10" sublabel="Questions completed" />
+                    <StatCard label="Matches" value={hasRecommendations ? `${user.recommendations?.length}` : "0"} sublabel="Career opportunities" />
                 </div>
-            </div>
 
-            <div className="max-w-7xl mx-auto px-6 py-12">
-                {/* Welcome Section */}
-                <motion.div
-                    initial={{ opacity: 0, y: -20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    className="mb-12"
-                >
-                    <h2 className="text-4xl font-bold mb-2">
-                        Welcome back, {user.name}! 👋
-                    </h2>
-                    <p className="text-xl text-gray-600">
-                        Continue your journey to finding the perfect career path
-                    </p>
-                </motion.div>
-
-                {/* Progress Cards */}
                 <div className="grid md:grid-cols-3 gap-6 mb-12">
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
@@ -237,6 +220,12 @@ export const Dashboard = () => {
                             </CardContent>
                         </Card>
                     </motion.div>
+                </div>
+
+                <div className="grid gap-6 lg:grid-cols-3 mb-12">
+                    <ProgressCard title="Profile strength" value={84} description="Complete onboarding to unlock more tailored guidance." tone="indigo" />
+                    <ProgressCard title="Personality insight" value={hasCompletedQuiz ? 72 : 24} description={hasCompletedQuiz ? "Excellent self-awareness profile" : "Take the quiz to unlock your profile."} tone="cyan" />
+                    <ProgressCard title="Career readiness" value={hasRecommendations ? 88 : 42} description={hasRecommendations ? "Recommendations are ready for review" : "AI guidance will become more precise after the chat."} tone="emerald" />
                 </div>
 
                 {/* Interests Section */}
@@ -395,7 +384,7 @@ export const Dashboard = () => {
                     </div>
                 </motion.div>
             </div>
-        </div>
+        </AppShell>
     );
 };
 
